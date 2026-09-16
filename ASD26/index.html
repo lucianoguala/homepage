@@ -1,0 +1,812 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="Materiale didattico del corso di Algoritmi e Strutture Dati, Università di Roma Tor Vergata.">
+  <title>Algoritmi e Strutture Dati · Luciano Gualà</title>
+  <style>
+    :root {
+      --paper: #f4f1ea;
+      --white: #fffef9;
+      --ink: #17233a;
+      --muted: #657083;
+      --line: #cfc9bc;
+      --blue: #245a8d;
+      --pale: #e8edf0;
+      --warm: #d68d2b
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 16px/1.65 Arial, Helvetica, sans-serif
+    }
+
+    a {
+      color: inherit;
+      text-decoration-thickness: 1px;
+      text-underline-offset: .22em
+    }
+
+    a:focus-visible {
+      outline: 3px solid var(--warm);
+      outline-offset: 4px
+    }
+
+    .wrap {
+      width: min(1160px, calc(100% - 48px));
+      margin: auto
+    }
+
+    .topbar {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      text-decoration: none
+    }
+
+    .mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--ink);
+      color: white;
+      font: 12px Georgia, serif
+    }
+
+    .back {
+      color: var(--muted);
+      font-size: 14px;
+      text-decoration: none
+    }
+
+    .back:hover,
+    .toc a:hover,
+    .file-link:hover {
+      color: var(--blue)
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
+      gap: clamp(48px, 8vw, 104px);
+      align-items: center;
+      padding: 82px 0 88px
+    }
+
+    .kicker,
+    .label {
+      margin: 0 0 16px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0
+    }
+
+    h1 {
+      max-width: 720px;
+      margin-bottom: 24px;
+      font: 500 clamp(50px, 6.8vw, 88px)/1 Georgia, serif;
+      letter-spacing: -.045em
+    }
+
+    .subtitle {
+      margin-bottom: 26px;
+      font: 400 clamp(24px, 3vw, 34px)/1.2 Georgia, serif;
+      color: var(--blue)
+    }
+
+    .meta {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px
+    }
+
+    .course-image {
+      margin: 0
+    }
+
+    .course-image img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 3/2;
+      object-fit: cover;
+      background: var(--pale)
+    }
+
+    .course-image figcaption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase
+    }
+
+    .toc {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 56px;
+      padding: 42px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line)
+    }
+
+    .toc h2 {
+      margin: 0;
+      font: 500 25px Georgia, serif
+    }
+
+    .toc ol {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px 30px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: toc
+    }
+
+    .toc li {
+      counter-increment: toc
+    }
+
+    .toc a {
+      display: flex;
+      gap: 9px;
+      color: var(--muted);
+      font-size: 14px;
+      text-decoration: none
+    }
+
+    .toc a:before {
+      content: "0" counter(toc);
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 700
+    }
+
+    .section {
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+      gap: clamp(40px, 8vw, 112px);
+      padding: 84px 0;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 20px
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font: 500 clamp(34px, 4vw, 48px)/1.08 Georgia, serif;
+      letter-spacing: -.025em
+    }
+
+    .content {
+      min-width: 0
+    }
+
+    .content>p {
+      max-width: 760px
+    }
+
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      margin: 30px 0
+    }
+
+    .book {
+      min-height: 220px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      background: rgba(255, 254, 249, .58)
+    }
+
+    .book .ref {
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700
+    }
+
+    .book h3 {
+      margin: 10px 0 18px;
+      font: 500 25px/1.2 Georgia, serif
+    }
+
+    .book p {
+      margin: 0;
+      color: var(--muted)
+    }
+
+    .module {
+      padding: 84px 0;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 20px
+    }
+
+    .module-title {
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+      gap: clamp(40px, 8vw, 112px);
+      margin-bottom: 48px
+    }
+
+    .module-title h2 {
+      margin: 0;
+      font: 500 clamp(38px, 5vw, 58px)/1 Georgia, serif
+    }
+
+    .module-title p {
+      max-width: 680px;
+      margin: 5px 0 0;
+      color: var(--muted)
+    }
+
+    .materials {
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+      gap: clamp(40px, 8vw, 112px)
+    }
+
+    .materials+.materials {
+      margin-top: 56px
+    }
+
+    .materials h3 {
+      margin: 3px 0 0;
+      color: var(--blue);
+      font-size: 12px;
+      letter-spacing: .13em;
+      text-transform: uppercase
+    }
+
+    .file-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--line)
+    }
+
+    .file-list li {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+      min-height: 62px;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .file-list span {
+      padding-right: 10px
+    }
+
+    .file-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap
+    }
+
+    .file-link:after {
+      content: "↓"
+    }
+
+    .link-group {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .diary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      padding: 24px 26px;
+      background: var(--ink);
+      color: white
+    }
+
+    .diary p {
+      margin: 0
+    }
+
+    .diary a {
+      color: white
+    }
+
+    .events {
+      display: grid;
+      gap: 22px
+    }
+
+    .event {
+      padding: 26px 28px;
+      border: 1px solid var(--line);
+      background: rgba(255, 254, 249, .58)
+    }
+
+    .event h3 {
+      margin-bottom: 16px;
+      font: 500 25px Georgia, serif
+    }
+
+    .event ul {
+      margin: 0;
+      padding-left: 20px
+    }
+
+    .event li+li {
+      margin-top: 8px
+    }
+
+    .archive {
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 30px;
+      padding: 13px 18px;
+      border: 1px solid var(--blue);
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: none
+    }
+
+    .archive:hover {
+      background: var(--blue);
+      color: white
+    }
+
+    .office {
+      padding: 72px 0
+    }
+
+    .office-box {
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+      gap: clamp(40px, 8vw, 112px);
+      padding: 36px 0
+    }
+
+    .office h2 {
+      font: 500 38px Georgia, serif
+    }
+
+    .office p {
+      max-width: 650px;
+      font: 19px/1.7 Georgia, serif
+    }
+
+    .footer {
+      min-height: 96px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .footer p {
+      margin: 0
+    }
+
+    @media(max-width:780px) {
+      .wrap {
+        width: min(100% - 32px, 1160px)
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 62px 0 68px
+      }
+
+      .course-image {
+        width: min(100%, 520px)
+      }
+
+      .toc,
+      .section,
+      .module-title,
+      .materials,
+      .office-box {
+        grid-template-columns: 1fr;
+        gap: 28px
+      }
+
+      .toc ol {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+      }
+
+      .book-grid {
+        grid-template-columns: 1fr
+      }
+
+      .file-list li {
+        align-items: start
+      }
+
+      .diary {
+        align-items: flex-start;
+        flex-direction: column
+      }
+
+      .footer {
+        min-height: 120px;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        gap: 8px
+      }
+    }
+
+    @media(max-width:480px) {
+      .topbar .brand span:last-child {
+        display: none
+      }
+
+      .toc ol {
+        grid-template-columns: 1fr
+      }
+
+      .link-group {
+        align-items: flex-end;
+        flex-direction: column;
+        gap: 4px
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      html {
+        scroll-behavior: auto
+      }
+    }
+  </style>
+</head>
+
+<body id="top">
+  <header class="topbar wrap">
+    <a class="brand" href="../index.html" aria-label="Torna alla home di Luciano Gualà"><span class="mark"
+        aria-hidden="true">LG</span><span>Luciano Gualà</span></a>
+    <a class="back" href="../index.html">← Home</a>
+  </header>
+
+  <main class="wrap">
+    <section class="hero" aria-labelledby="course-title">
+      <div>
+        <p class="kicker">Corso · 12 CFU</p>
+        <h1 id="course-title">Algoritmi e Strutture Dati</h1>
+        <p class="subtitle">Modulo I + Modulo II</p>
+        <p class="meta">CdL in Informatica · Università di Roma Tor Vergata<br>A.A. 2026/27</p>
+      </div>
+      <figure class="course-image">
+        <img src="course-illustration.webp" alt="Illustrazione astratta di alberi, grafi e strutture dati" width="1536"
+          height="1024">
+        <figcaption>Alberi · Grafi · Strutture dati</figcaption>
+      </figure>
+    </section>
+
+    <nav class="toc" aria-label="Indice della pagina">
+      <h2>In questa pagina</h2>
+      <ol>
+        <li><a href="#libri">Libri di testo</a></li>
+        <li><a href="#modulo-i">Modulo I</a></li>
+        <li><a href="#modulo-ii">Modulo II</a></li>
+        <li><a href="#appelli">Appelli</a></li>
+        <li><a href="#ricevimento">Ricevimento</a></li>
+      </ol>
+    </nav>
+
+    <section class="section" id="libri" aria-labelledby="libri-title">
+      <div class="section-head">
+        <p class="label">01</p>
+        <h2 id="libri-title">Libri di testo</h2>
+      </div>
+      <div class="content">
+        <p>Per i primi 6 crediti del corso si suggerisce come testo di riferimento:</p>
+        <div class="book-grid">
+          <article class="book">
+            <p class="ref">MODULO I</p>
+            <h3>Algoritmi e Strutture Dati</h3>
+            <p>Camil Demetrescu, Irene Finocchi, Giuseppe F. Italiano<br>McGraw-Hill</p>
+          </article>
+          <article class="book">
+            <p class="ref">[KT05] · MODULO II</p>
+            <h3>Algorithm Design</h3>
+            <p>Jon Kleinberg, Éva Tardos<br>Addison-Wesley, 2005</p>
+          </article>
+        </div>
+        <p>Gli argomenti svolti possono essere reperiti anche su altri testi, a scelta dello studente. Ulteriori
+          riferimenti sono suggeriti nei lucidi della lezione introduttiva.</p>
+      </div>
+    </section>
+
+    <section class="module" id="modulo-i" aria-labelledby="modulo-i-title">
+      <div class="module-title">
+        <div>
+          <p class="label">02</p>
+          <h2 id="modulo-i-title">Modulo I</h2>
+        </div>
+        <p>Fondamenti dell’analisi degli algoritmi e principali strutture dati. I collegamenti sono predisposti per i
+          materiali dell’edizione corrente.</p>
+      </div>
+      <div class="materials">
+        <h3>Lezioni e slide</h3>
+        <ul class="file-list">
+		
+		<!--
+		
+          <li><span>Introduzione al corso</span><a class="file-link" href="slides/introduzione_2025.pdf">PDF</a>
+          </li>
+          <li><span>Capitolo 1: Un’introduzione informale agli algoritmi</span><a class="file-link"
+              href="slides/cap1_2025.pdf">PDF</a></li>
+          <li><span>Capitolo 2: Modelli di calcolo e notazione asintotica</span><a class="file-link"
+              href="slides/cap2_notazione_asintotica_2025.pdf">PDF</a></li>
+          <li><span>Capitolo 2: Ricorsione, tecniche di progettazione ed equazioni di ricorrenza</span><a
+              class="file-link" href="slides/cap2_equazioni_ricorrenza_2025.pdf">PDF</a></li>
+          <li><span>Capitolo 4: Ordinare in tempo quadratico: il Selection Sort. Algoritmi di ordinamento che usano la 
+		            tecnica del divide et impera: MergeSort e QuickSort</span><a class="file-link" href="slides/cap4_divide_et_impera_2025.pdf">PDF</a>
+          </li>
+          <li><span>Capitolo 4: Heap Sort</span><a class="file-link" href="slides/cap4_heapsort_2025.pdf">PDF</a></li>
+          <li><span>Capitolo 4: un lower bound al problema dell'ordinamento (per una classe ragionevole di algoritmi) 
+		       e algoritmi lineari (fuori da tale classe di algoritmi)</span><a class="file-link"
+              href="slides/cap4_lower_bound_e_lineari_2025.pdf">PDF</a></li>
+          <li><span>Capitolo 3: Strutture dati elementari; rappresentazioni indicizzate e collegate di alberi; 
+		          algoritmi di visita di alberi</span><a class="file-link" href="slides/cap3_2025.pdf">PDF</a></li>
+		  <li><span>Capitolo 6: Il problema del Dizionario; Alberi binari di ricerca; alberi AVL 
+		          </span><a class="file-link" href="slides/cap6_2025.pdf">PDF</a></li>
+		  <li><span>Capitolo 8: Code con priorita'. d-Heap, Heap Binomiali, (cenni sugli) Heap di Fibonacci </span>
+		       <a class="file-link" href="slides/cap8_2025.pdf">PDF</a></li>
+		  <li><span>Grafi. Cosa e perché </span><a class="file-link" href="slides/grafi_2025.pdf">PDF</a></li>
+		  <li><span>Rappresentazione in memoria di grafi. Visite: ampiezza e profondità </span>
+		       <a class="file-link" href="slides/visite_2025.pdf">PDF</a></li>
+		  <li><span>Applicazioni della visita DFS: cicli, DAG, ordinamento topologico e componenti fortemente connesse </span>
+		       <a class="file-link" href="slides/usi_dfs_2025.pdf">PDF</a></li>
+		  <li><span>Cammini minimi in grafi pesati; algoritmo di Dijkstra </span><a class="file-link" href="slides/Dijkstra_2025.pdf">PDF</a></li>
+        -->
+		</ul>
+      </div>
+      <div class="materials">
+        <h3>Esercitazioni</h3>
+        <ul class="file-list">
+		
+		<!--
+          <li><span>Esercitazione 1 · 06/11/25</span><a class="file-link"
+              href="esercitazioni/esercitazione_1_2025.pdf">PDF</a></li>
+          <li><span>Esercitazione 2 · 11/11/25</span><a class="file-link"
+              href="esercitazioni/esercitazione_2_2025.pdf">PDF</a></li>
+          <li><span>Esercitazione 3 · 18/11/25</span><a class="file-link"
+              href="esercitazioni/esercitazione_3_2025.pdf">PDF</a></li>
+          <li><span>Esercitazione 4 · 27/11/25</span><a class="file-link"
+              href="esercitazioni/esercitazione_4_2025.pdf">PDF</a></li>
+          <li><span>Esercitazione 5 · 18/12/25</span><a class="file-link"
+              href="esercitazioni/esercitazione_5_2025.pdf">PDF</a></li>
+          <li><span>Esercitazione 6 · 8/01/26</span><a class="file-link"
+              href="esercitazioni/esercitazione_6_2025.pdf">PDF</a></li>
+        -->
+		</ul>
+      </div>
+      <div class="materials">
+        <h3>Problem set</h3>
+        <ul class="file-list">
+          <li><span>Problem Set · Istruzioni e consigli</span><a class="file-link"
+              href="PS/istruzioni_25.pdf">PDF</a></li>
+          <li><span>Template LaTeX per le soluzioni</span><span class="link-group"><a class="file-link"
+                href="PS/Problem_Set_Template.pdf">PDF</a><a class="file-link"
+                href="PS/Problem Set Template.zip">ZIP</a></span></li>
+          
+		  <!--
+		  <li><span>Problem Set 1</span><a class="file-link" href="PS/ps_1_25.pdf">PDF</a></li>
+          <li><span>Problem Set 2</span><a class="file-link" href="PS/ps_2_25.pdf">PDF</a></li>
+		  -->
+		  
+        </ul>
+      </div>
+	  
+	  <!--
+      <div class="materials">
+        <h3>Diario</h3>
+        <div class="diary">
+          <p>Diario delle lezioni · Modulo I</p><a href="ASD_modI_diario lezioni_2025_26.pdf">Apri il PDF ↓</a>
+        </div>
+      </div>
+	  -->
+	  
+    </section>
+
+    <section class="module" id="modulo-ii" aria-labelledby="modulo-ii-title">
+      <div class="module-title">
+        <div>
+          <p class="label">03</p>
+          <h2 id="modulo-ii-title">Modulo II</h2>
+        </div>
+        <p>Tecniche avanzate di progettazione e analisi degli algoritmi, con materiali organizzati secondo la stessa
+          struttura del primo modulo.</p>
+      </div>
+      <div class="materials">
+        <h3>Lezioni e slide</h3>
+        <ul class="file-list">
+		<!--  
+          <li><span>Introduzione al Modulo II</span><a class="file-link"
+              href="slides/00_Introduzione_mod2_2025.pdf">PDF</a></li>
+          <li><span>Algoritmi greedy: Interval Scheduling e Interval Partitioning</span><a class="file-link" href="slides/01_Interval_scheduling_2025.pdf">PDF</a></li>
+          <li><span>Strutture dati Union-Find </span><a class="file-link"
+              href="slides/02_Union_find_2025.pdf">PDF</a></li>
+          <li><span>Il problema del Minimum Spanning Tree: l'agoritmo di Kruskal e l'algoritmo di Prim; 
+		        il problema del k-clustering di massimo spacing</span><a class="file-link"
+              href="slides/03_mst_2025.pdf">PDF</a></li>
+          <li><span>Programmazione Dinamica I: primo esempio e principi generali </span><a class="file-link"
+              href="slides/04_DP_I_2025.pdf">PDF</a></li>
+          <li><span>Programmazione Dinamica II: weighted Interval Scheduling, 
+		      Longest Increasing Subsequence, House Coloring Problem, Segmented Least Squares, Knapsack problem</span>
+			  <a class="file-link" href="slides/05_DP_II_2025.pdf">PDF</a></li>
+          <li><span>Programmazione Dinamica III: sequence alignment, algoritmo di Hirschberg, 
+		        cammini minimi in grafi con pesi negativi, algoritmo di Bellman-Ford</span>
+				<a class="file-link"
+              href="slides/06_DP_III_2025.pdf">PDF</a></li>
+          <li><span>Il problema del massimo flusso e il problema del minimo taglio. 
+		       L'algoritmo di Ford-Fulkerson; teorema del max-flow min-cut; 
+			    Scegliere buoni cammini aumentanti</span><a class="file-link"
+              href="slides/07_Network_Flow_I_2025.pdf">PDF</a></li>
+          <li><span>Applicazioni del max-flow. Massimo matching su grafi bipartiti. 
+		        Massimo numero di cammini arco-disgiunti. Image Segmentation. Baseball elimination</span>
+				<a class="file-link" href="slides/07_Network_Flow_II_2025.pdf">PDF</a></li>
+          <li><span>Introduzione all'NP-completezza. Concetto di riduzione polinomiale. Alcune riduzioni polinomiali</span>
+		      <a class="file-link" href="slides/08_Intractability_I_2025.pdf">PDF</a></li>
+          <li><span>Ancora sull'NP-completezza. P vs NP. NP-completezza. Co-NP </span><a class="file-link"
+              href="slides/08_Intractability_II_2025.pdf">PDF</a></li>			  			
+          <li><span>Ancora sull'NP-completezza. Qualche altra riduzione. 
+		      Super Mario, Peg Solitaire e Tetris sono NP-completi</span><a class="file-link"
+              href="slides/08_Intractability_III_2025.pdf">PDF</a></li>
+          <li><span>Algoritmi di approssimazione. Algoritmo 2-apx per Load Balancing. Un algoritmo migliore: 
+		         3/2-apx per Load Balancing</span><a class="file-link"
+              href="slides/09_Apx_Algorithms_I_2025.pdf">PDF</a></li>
+          <li><span>Algoritmi di approssimazione. Algoritmo 2-apx per il problema del k-Center</span><a class="file-link"
+              href="slides/09_Apx_Algorithms_II_2025.pdf">PDF</a></li>
+          <li><span>Tabelle hash</span><a class="file-link"
+              href="slides/10_hash_table_2025.pdf">PDF</a></li>			  			  
+		  -->    
+        </ul>
+      </div>
+      <div class="materials">
+        <h3>Esercitazioni</h3>
+        <ul class="file-list">
+		<!--
+          <li><span>Esercitazione 1 · 17/03/26 </span><a class="file-link"
+              href="esercitazioni/esercitazione_1_mod2_2025.pdf">PDF</a></li>
+          <li><span>Esercitazione 2 · 31/03/26 </span><a class="file-link"
+              href="esercitazioni/esercitazione_2_mod2_2025.pdf">PDF</a></li>
+          <li><span>Esercitazione 3 · 14/04/26 </span><a class="file-link"
+              href="esercitazioni/esercitazione_3_mod2_2025.pdf">PDF</a></li>
+          <li><span>Esercitazione 4 · 28/04/26 </span><a class="file-link"
+              href="esercitazioni/esercitazione_4_mod2_2025.pdf">PDF</a></li>
+		  <li><span>Esercitazione 5 · 12/05/26 </span><a class="file-link"
+              href="esercitazioni/esercitazione_5_mod2_2025.pdf">PDF</a></li>
+		-->	    
+        </ul>
+      </div>
+      <div class="materials">
+        <h3>Problem set</h3>
+        <ul class="file-list">
+		<!--
+          <li><span>Problem Set 3 </span><a class="file-link" href="PS/ps_3_25.pdf">PDF</a></li>
+	     -->
+        </ul>
+      </div>
+	  
+	  <!--
+      <div class="materials">
+        <h3>Diario</h3>
+        <div class="diary">
+          <p>Diario delle lezioni · Modulo II</p><a href="ASD_mod2_diario lezioni_2025_26.pdf">Apri il PDF ↓</a>
+        </div>
+      </div>
+	  -->
+    </section>
+
+    <section class="section" id="appelli" aria-labelledby="appelli-title">
+      <div class="section-head">
+        <p class="label">04</p>
+        <h2 id="appelli-title">Appelli</h2>
+      </div>
+      <div class="content">
+        <div class="events">
+		
+		<!--
+          <article class="event">
+            <h3>Esonero · 16/02/26</h3>
+            <ul>
+              <li><a href="appelli/ASD_compito2026_02_16_mod1.pdf">Testo prova scritta (modulo I)</a></li>
+              <li><a href="appelli/ASD_2026_02_16_risultati_mod1.pdf">Risultati prova scritta (modulo I)</a></li>
+            </ul>
+          </article>
+          <article class="event">
+            <h3>Appello · 30/06/26</h3>
+            <ul>
+              <li><a href="appelli/ASD_compito2026_06_30_mod1.pdf">Testo prova scritta (modulo I)</a></li>
+              <li><a href="appelli/ASD_2026_06_30_risultati_mod1.pdf">Risultati prova scritta (modulo I)</a></li>
+              <li><a href="appelli/ASD_compito2026_06_30_mod2.pdf">Testo prova scritta (modulo II)</a></li>
+              <li><a href="appelli/ASD_2026_06_30_risultati_mod2.pdf">Risultati prova scritta (modulo II)</a></li>
+            </ul>
+          </article>
+		  <article class="event">
+            <h3>Appello · 20/07/26</h3>
+            <ul>
+              <li><a href="appelli/ASD_compito2026_07_20_mod1.pdf">Testo prova scritta (modulo I)</a></li>
+              <li><a href="appelli/ASD_2026_07_20_risultati_mod1.pdf">Risultati prova scritta (modulo I)</a></li>
+              <li><a href="appelli/ASD_compito2026_07_20_mod2.pdf">Testo prova scritta (modulo II)</a></li>
+              <li><a href="appelli/ASD_2026_07_20_risultati_mod2.pdf">Risultati prova scritta (modulo II)</a></li>
+            </ul>
+          </article>
+		  <article class="event">
+            <h3>Appello · 8/09/26</h3>
+            <ul>
+              <li><a href="appelli/ASD_compito2026_09_08_mod1.pdf">Testo prova scritta (modulo I)</a></li>
+              <li><a href="appelli/ASD_2026_09_08_risultati_mod1.pdf">Risultati prova scritta (modulo I)</a></li>
+              <li><a href="appelli/ASD_compito2026_09_08_mod2.pdf">Testo prova scritta (modulo II)</a></li>
+              <li><a href="appelli/ASD_2026_09_08_risultati_mod2.pdf">Risultati prova scritta (modulo II)</a></li>
+            </ul>
+          </article>
+		-->  		  
+        </div>
+        <a class="archive" href="appelli/prove scritte.zip">Archivio prove degli anni passati <span
+            aria-hidden="true">↓</span></a>
+      </div>
+    </section>
+
+    <section class="office" id="ricevimento" aria-labelledby="ricevimento-title">
+      <div class="office-box">
+        <div>
+          <p class="label">05</p>
+          <h2 id="ricevimento-title">Ricevimento studenti</h2>
+        </div>
+        <p>Possiamo incontrarci sia in presenza sia online. Mandatemi una <a
+            href="mailto:guala@mat.uniroma2.it">email</a> per prendere appuntamento.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer wrap">
+    <p>Algoritmi e Strutture Dati</p><a href="#top">Torna all’inizio ↑</a>
+  </footer>
+</body>
+
+</html>
