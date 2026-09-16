@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="Materiale didattico del corso Analisi di Reti, Modulo II, Università di Roma Tor Vergata.">
+  <title>Analisi di Reti · Modulo II · Luciano Gualà</title>
+  <style>
+    :root {
+      --paper: #f4f1ea;
+      --white: #fffef9;
+      --ink: #17233a;
+      --muted: #657083;
+      --line: #cfc9bc;
+      --blue: #245a8d;
+      --orange: #b75a26;
+      --warm: #d68d2b
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 16px/1.65 Arial, Helvetica, sans-serif
+    }
+
+    a {
+      color: inherit;
+      text-decoration-thickness: 1px;
+      text-underline-offset: .22em
+    }
+
+    a:focus-visible {
+      outline: 3px solid var(--warm);
+      outline-offset: 4px
+    }
+
+    .wrap {
+      width: min(1160px, calc(100% - 48px));
+      margin: auto
+    }
+
+    .topbar {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      text-decoration: none
+    }
+
+    .mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--ink);
+      color: white;
+      font: 12px Georgia, serif
+    }
+
+    .back {
+      color: var(--muted);
+      font-size: 14px;
+      text-decoration: none
+    }
+
+    .back:hover,
+    .toc a:hover,
+    .file:hover {
+      color: var(--blue)
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
+      gap: clamp(48px, 7vw, 96px);
+      align-items: center;
+      padding: 82px 0 88px
+    }
+
+    .kicker,
+    .label {
+      margin: 0 0 16px;
+      color: var(--orange);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font: 500 clamp(54px, 7vw, 92px)/.98 Georgia, serif;
+      letter-spacing: -.045em
+    }
+
+    .subtitle {
+      margin-bottom: 24px;
+      color: var(--blue);
+      font: 400 clamp(25px, 3vw, 35px)/1.2 Georgia, serif
+    }
+
+    .meta {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px
+    }
+
+    .course-image {
+      margin: 0
+    }
+
+    .course-image img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 3/2;
+      object-fit: cover
+    }
+
+    .course-image figcaption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase
+    }
+
+    .toc {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 56px;
+      padding: 42px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line)
+    }
+
+    .toc h2 {
+      margin: 0;
+      font: 500 25px Georgia, serif
+    }
+
+    .toc ol {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px 30px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: toc
+    }
+
+    .toc li {
+      counter-increment: toc
+    }
+
+    .toc a {
+      display: flex;
+      gap: 9px;
+      color: var(--muted);
+      font-size: 14px;
+      text-decoration: none
+    }
+
+    .toc a:before {
+      content: "0" counter(toc);
+      color: var(--orange);
+      font-size: 11px;
+      font-weight: 700
+    }
+
+    .section {
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+      gap: clamp(40px, 8vw, 112px);
+      padding: 84px 0;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 20px
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font: 500 clamp(34px, 4vw, 48px)/1.08 Georgia, serif;
+      letter-spacing: -.025em
+    }
+
+    .content {
+      min-width: 0
+    }
+
+    .content>p {
+      max-width: 760px
+    }
+
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      margin: 30px 0
+    }
+
+    .book {
+      min-height: 245px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      background: rgba(255, 254, 249, .58)
+    }
+
+    .book .ref {
+      color: var(--orange);
+      font-size: 12px;
+      font-weight: 700
+    }
+
+    .book h3 {
+      margin: 10px 0 18px;
+      font: 500 25px/1.2 Georgia, serif
+    }
+
+    .book p {
+      margin: 0;
+      color: var(--muted)
+    }
+
+    .book a {
+      display: inline-block;
+      margin-top: 20px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 700
+    }
+
+    .file-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--line)
+    }
+
+    .file-list li {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      min-height: 66px;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .number {
+      color: var(--orange);
+      font: 500 18px Georgia, serif
+    }
+
+    .file {
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap
+    }
+
+    .file:after {
+      content: " ↓"
+    }
+
+    .note {
+      margin-top: 28px;
+      padding: 22px 24px;
+      border-left: 3px solid var(--orange);
+      background: rgba(255, 254, 249, .6);
+      color: var(--muted)
+    }
+
+    .diary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      padding: 24px 26px;
+      background: var(--ink);
+      color: white
+    }
+
+    .diary p {
+      margin: 0
+    }
+
+    .diary a {
+      color: white
+    }
+
+    .office {
+      padding: 76px 0
+    }
+
+    .office-box {
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+      gap: clamp(40px, 8vw, 112px)
+    }
+
+    .office h2 {
+      font: 500 38px Georgia, serif
+    }
+
+    .office p {
+      max-width: 650px;
+      font: 19px/1.7 Georgia, serif
+    }
+
+    .footer {
+      min-height: 96px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .footer p {
+      margin: 0
+    }
+
+    @media(max-width:780px) {
+      .wrap {
+        width: min(100% - 32px, 1160px)
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 62px 0 68px
+      }
+
+      .course-image {
+        width: min(100%, 540px)
+      }
+
+      .toc,
+      .section,
+      .office-box {
+        grid-template-columns: 1fr;
+        gap: 28px
+      }
+
+      .book-grid {
+        grid-template-columns: 1fr
+      }
+
+      .toc ol {
+        grid-template-columns: 1fr
+      }
+
+      .file-list li {
+        grid-template-columns: 34px minmax(0, 1fr) auto
+      }
+
+      .footer {
+        min-height: 120px;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        gap: 8px
+      }
+    }
+
+      .diary {
+        align-items: flex-start;
+        flex-direction: column
+      }
+
+    @media(max-width:480px) {
+      .topbar .brand span:last-child {
+        display: none
+      }
+
+      .file-list li {
+        grid-template-columns: 28px minmax(0, 1fr)
+      }
+
+      .file {
+        grid-column: 2
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      html {
+        scroll-behavior: auto
+      }
+    }
+  </style>
+</head>
+
+<body id="top">
+  <header class="topbar wrap"><a class="brand" href="../index.html" aria-label="Torna alla home di Luciano Gualà"><span
+        class="mark" aria-hidden="true">LG</span><span>Luciano Gualà</span></a><a class="back" href="../index.html">←
+      Home</a></header>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="course-title">
+      <div>
+        <p class="kicker">Corso magistrale</p>
+        <h1 id="course-title">Analisi di Reti</h1>
+        <p class="subtitle">Modulo II</p>
+        <p class="meta">CdL Magistrale in Informatica · Università di Roma Tor Vergata<br>A.A. 2025/26</p>
+      </div>
+      <figure class="course-image"><img src="course-illustration.webp"
+          alt="Illustrazione astratta di agenti strategici connessi in una rete" width="1536" height="1024">
+        <figcaption>Algorithmic game theory · Network formation games</figcaption>
+      </figure>
+    </section>
+
+    <nav class="toc" aria-label="Indice della pagina">
+      <h2>In questa pagina</h2>
+      <ol>
+        <li><a href="#libri">Libri di testo</a></li>
+        <li><a href="#materiale">Materiale didattico</a></li>
+        <li><a href="#ricevimento">Ricevimento</a></li>
+      </ol>
+    </nav>
+
+    <section class="section" id="libri" aria-labelledby="libri-title">
+      <div class="section-head">
+        <p class="label">01</p>
+        <h2 id="libri-title">Libri di testo</h2>
+      </div>
+      <div class="content">
+        <p>Si suggeriscono come riferimenti principali i seguenti volumi.</p>
+        <div class="book-grid">
+          <article class="book">
+            <p class="ref">RIFERIMENTO PRINCIPALE</p>
+            <h3>Algorithmic Game Theory</h3>
+            <p>Edited by N. Nisan, T. Roughgarden, É. Tardos, V. V. Vazirani<br>Cambridge University Press</p><a
+              href="#" aria-label="Risorsa online per Algorithmic Game Theory — link da inserire">Risorsa online ↗</a>
+          </article>
+          <article class="book">
+            <p class="ref">APPROFONDIMENTO</p>
+            <h3>Twenty Lectures on Algorithmic Game Theory</h3>
+            <p>Tim Roughgarden<br>Cambridge University Press</p><a href="#"
+              aria-label="Risorsa online per Twenty Lectures on Algorithmic Game Theory — link da inserire">Risorsa
+              online ↗</a>
+          </article>
+        </div>
+        <p>Gli argomenti possono essere reperiti anche su altri testi, a scelta dello studente. I lucidi presentati a
+          lezione definiscono il programma del corso.</p>
+      </div>
+    </section>
+
+    <section class="section" id="materiale" aria-labelledby="materiale-title">
+      <div class="section-head">
+        <p class="label">02</p>
+        <h2 id="materiale-title">Materiale didattico</h2>
+      </div>
+      <div class="content">
+        <ul class="file-list">
+          <li><span class="number">01</span><span>Introduzione al corso: concetti fondamentali ed esempi</span><a
+              class="file" href="slides/AR_Introduzione_2025.pdf">PDF</a></li>
+          <li><span class="number">02</span><span>Introduzione ai Formation Games; Global Connection Game</span><a
+              class="file" href="slides/AR_GCG_2025.pdf">PDF</a></li>
+          <li><span class="number">03</span><span>Local Connection Game</span><a class="file"
+              href="slides/AR_LCG_2025.pdf">PDF</a></li>
+          <li><span class="number">04</span><span>Algorithmic Mechanism Design; Problemi utilitari e meccanismi VCG</span><a
+              class="file" href="slides/AR_AMD_2025.pdf">PDF</a></li>
+          <li><span class="number">05</span><span>Meccanismo truthful per il problema del cammino minimo; Meccanismi one-parameter; 
+		                             meccanismo truthful per il problema dell'albero dei cammini minimi</span><a class="file"
+              href="slides/AR_One_Parameter_2025.pdf">PDF</a></li>
+          <li><span class="number">06</span><span>Meccanismo truthful approssimato per il problema 
+		           dell'asta combinatorica (caso single-minded)</span><a class="file" href="slides/AR_CA_2025.pdf">PDF</a></li>
+          <li><span class="number">07</span><span>Mechanism Design without money: house allocation problem, kidney exchange </span><a class="file"
+              href="slides/AR_MD_without_money_2025.pdf">PDF</a></li>
+          <li><span class="number">08</span><span>Equilibri di Nash in strategie pure e PLS-completezza </span><a class="file"
+              href="slides/AR_PLS_2025.pdf">PDF</a></li>
+        </ul>
+        
+      </div>
+	  <!--
+	  <div class="materials">
+        <h3>Diario</h3>
+        <div class="diary">
+          <p>Diario delle lezioni · Modulo II</p><a href="AR_diario_lezioni_2025_26.pdf">Apri il PDF ↓</a>
+        </div>
+      </div>
+	  -->
+	  
+    </section>
+
+    <section class="office" id="ricevimento" aria-labelledby="ricevimento-title">
+      <div class="office-box">
+        <div>
+          <p class="label">03</p>
+          <h2 id="ricevimento-title">Ricevimento studenti</h2>
+        </div>
+        <p>Possiamo incontrarci sia in presenza sia online. Mandatemi una <a
+            href="mailto:guala@mat.uniroma2.it">email</a> per prendere appuntamento.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="footer wrap">
+    <p>Analisi di Reti · Modulo II</p><a href="#top">Torna all’inizio ↑</a>
+  </footer>
+</body>
+
+</html>
