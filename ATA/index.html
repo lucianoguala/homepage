@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="Materiale didattico del corso Advanced Topics on Algorithms, Università di Roma Tor Vergata.">
+  <title>Advanced Topics on Algorithms · Luciano Gualà</title>
+  <style>
+    :root {
+      --paper: #f4f1ea;
+      --white: #fffef9;
+      --ink: #17233a;
+      --muted: #657083;
+      --line: #cfc9bc;
+      --indigo: #373c8d;
+      --mint: #55949b;
+      --warm: #d68d2b
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 16px/1.65 Arial, Helvetica, sans-serif
+    }
+
+    a {
+      color: inherit;
+      text-decoration-thickness: 1px;
+      text-underline-offset: .22em
+    }
+
+    a:focus-visible {
+      outline: 3px solid var(--warm);
+      outline-offset: 4px
+    }
+
+    .wrap {
+      width: min(1160px, calc(100% - 48px));
+      margin: auto
+    }
+
+    .topbar {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      text-decoration: none
+    }
+
+    .mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--ink);
+      color: white;
+      font: 12px Georgia, serif
+    }
+
+    .back {
+      color: var(--muted);
+      font-size: 14px;
+      text-decoration: none
+    }
+
+    .back:hover,
+    .toc a:hover,
+    .episode a:hover {
+      color: var(--indigo)
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, .92fr);
+      gap: clamp(48px, 7vw, 96px);
+      align-items: center;
+      padding: 82px 0 88px
+    }
+
+    .kicker,
+    .label {
+      margin: 0 0 16px;
+      color: var(--indigo);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0
+    }
+
+    h1 {
+      margin-bottom: 26px;
+      font: 500 clamp(50px, 6.3vw, 84px)/1 Georgia, serif;
+      letter-spacing: -.045em
+    }
+
+    .meta {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px
+    }
+
+    .course-image {
+      margin: 0
+    }
+
+    .course-image img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 3/2;
+      object-fit: cover
+    }
+
+    .course-image figcaption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase
+    }
+
+    .toc {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 56px;
+      padding: 42px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line)
+    }
+
+    .toc h2 {
+      margin: 0;
+      font: 500 25px Georgia, serif
+    }
+
+    .toc ol {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 30px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: toc
+    }
+
+    .toc li {
+      counter-increment: toc
+    }
+
+    .toc a {
+      display: flex;
+      gap: 9px;
+      color: var(--muted);
+      font-size: 14px;
+      text-decoration: none
+    }
+
+    .toc a:before {
+      content: "0" counter(toc);
+      color: var(--indigo);
+      font-size: 11px;
+      font-weight: 700
+    }
+
+    .section {
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+      gap: clamp(40px, 8vw, 112px);
+      padding: 84px 0;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 20px
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font: 500 clamp(34px, 4vw, 48px)/1.08 Georgia, serif;
+      letter-spacing: -.025em
+    }
+
+    .content {
+      min-width: 0
+    }
+
+    .current-panel {
+      padding: 36px;
+      background: var(--ink);
+      color: white
+    }
+
+    .current-panel p {
+      margin-bottom: 22px;
+      color: #cbd2dc
+    }
+
+    .current-topics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: current
+    }
+
+    .current-topics li {
+      counter-increment: current;
+      min-height: 126px;
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, .24);
+      font: 500 22px/1.25 Georgia, serif
+    }
+
+    .current-topics li:before {
+      content: "0" counter(current);
+      display: block;
+      margin-bottom: 18px;
+      color: #9ccbd0;
+      font: 700 11px Arial, sans-serif;
+      letter-spacing: .12em
+    }
+
+    .intro {
+      max-width: 760px;
+      margin-bottom: 38px;
+      color: var(--muted);
+      font-size: 18px
+    }
+
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px
+    }
+
+    .topic {
+      padding: 30px;
+      border: 1px solid var(--line);
+      background: rgba(255, 254, 249, .58)
+    }
+
+    .topic:last-child:nth-child(odd) {
+      grid-column: 1/-1
+    }
+
+    .topic .tag {
+      margin: 0 0 12px;
+      color: var(--mint);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .13em;
+      text-transform: uppercase
+    }
+
+    .topic h3 {
+      min-height: 58px;
+      margin-bottom: 24px;
+      font: 500 27px/1.15 Georgia, serif
+    }
+
+    .episodes {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--line)
+    }
+
+    .episode {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 16px;
+      min-height: 54px;
+      align-items: center;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .episode>span:first-child {
+      font-size: 14px
+    }
+
+    .episode a {
+      color: var(--indigo);
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none
+    }
+
+    .episode a:after {
+      content: " ↓"
+    }
+
+    .multi {
+      display: flex;
+      gap: 12px
+    }
+
+    .note {
+      margin-top: 34px;
+      padding: 22px 24px;
+      border-left: 3px solid var(--indigo);
+      background: rgba(255, 254, 249, .62);
+      color: var(--muted)
+    }
+
+    .footer {
+      min-height: 96px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .footer p {
+      margin: 0
+    }
+
+    @media(max-width:800px) {
+      .wrap {
+        width: min(100% - 32px, 1160px)
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 62px 0 68px
+      }
+
+      .course-image {
+        width: min(100%, 540px)
+      }
+
+      .toc,
+      .section {
+        grid-template-columns: 1fr;
+        gap: 28px
+      }
+
+      .topic-grid {
+        grid-template-columns: 1fr
+      }
+
+      .topic:last-child:nth-child(odd) {
+        grid-column: auto
+      }
+
+      .current-topics {
+        grid-template-columns: 1fr
+      }
+
+      .current-topics li {
+        min-height: auto
+      }
+
+      .footer {
+        min-height: 120px;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        gap: 8px
+      }
+    }
+
+    @media(max-width:480px) {
+      .topbar .brand span:last-child {
+        display: none
+      }
+
+      .toc ol {
+        grid-template-columns: 1fr
+      }
+
+      .episode {
+        align-items: start;
+        padding: 12px 0
+      }
+
+      .multi {
+        align-items: flex-end;
+        flex-direction: column;
+        gap: 4px
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      html {
+        scroll-behavior: auto
+      }
+    }
+  </style>
+</head>
+
+<body id="top">
+  <header class="topbar wrap"><a class="brand" href="../index.html" aria-label="Torna alla home di Luciano Gualà"><span
+        class="mark" aria-hidden="true">LG</span><span>Luciano Gualà</span></a><a class="back" href="../index.html">←
+      Home</a></header>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="course-title">
+      <div>
+        <p class="kicker">Seminari tematici</p>
+        <h1 id="course-title">Advanced Topics on Algorithms</h1>
+        <p class="meta">CdL Triennale/Magistrale in Informatica · Università di Roma Tor Vergata<br>A.A. 2025/26</p>
+      </div>
+      <figure class="course-image"><img src="course-illustration.webp"
+          alt="Illustrazione astratta di tecniche algoritmiche avanzate" width="1536" height="1024">
+        <figcaption>Models · Techniques · Data</figcaption>
+      </figure>
+    </section>
+
+    <nav class="toc" aria-label="Indice della pagina">
+      <h2>In questa pagina</h2>
+      <ol>
+        <li><a href="#anno-corrente">Anno corrente</a></li>
+        <li><a href="#archivio-topic">Archivio dei topic</a></li>
+      </ol>
+    </nav>
+
+    <section class="section" id="anno-corrente" aria-labelledby="corrente-title">
+      <div class="section-head">
+        <p class="label">01</p>
+        <h2 id="corrente-title">Anno corrente</h2>
+      </div>
+      <div class="content">
+        <div class="current-panel">
+          <p>I topic trattati nell’anno accademico 2025/26 sono:</p>
+          <ol class="current-topics">
+            <li>Topic I: Approximation algorithms</li>
+            <li>Topic II: Parameterized algorithms</li>
+            <li>Topic III: Beyond worst-case analysis</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="archivio-topic" aria-labelledby="topics-title">
+      <div class="section-head">
+        <p class="label">02</p>
+        <h2 id="topics-title">Topics</h2>
+      </div>
+      <div class="content">
+        <p class="intro">L’archivio raccoglie le quattro lezioni dedicate a ciascun argomento nelle diverse edizioni del
+          corso. I materiali restano organizzati per topic, indipendentemente dall’anno in cui sono stati presentati.
+        </p>
+        <div class="topic-grid">
+          <article class="topic">
+            <p class="tag">Topic archive</p>
+            <h3>Approximation Algorithms</h3>
+            <ul class="episodes">
+              <li class="episode"><span>Episode I</span><a href="slides/Apx_algs_1_2025.pdf">PDF</a></li>
+              <li class="episode"><span>Episode II</span><a href="slides/Apx_algs_2_2025.pdf">PDF</a></li>
+              <li class="episode"><span>Episode III</span><a href="slides/Apx_algs_3_2025.pdf">PDF</a></li>
+              <li class="episode"><span>Episode IV</span><a href="slides/Apx_algs_4_2025.pdf">PDF</a></li>
+            </ul>
+          </article>
+
+          <article class="topic">
+            <p class="tag">Topic archive</p>
+            <h3>Parameterized Algorithms</h3>
+            <ul class="episodes">
+              <li class="episode"><span>Episode I</span><a href="slides/FPT_1_2025.pdf">PDF</a></li>
+              <li class="episode"><span>Episode II</span><a href="slides/FPT_2_2025.pdf">PDF</a></li>
+              <li class="episode"><span>Episode III</span><a href="slides/FPT_3_2025.pdf">PDF</a></li>
+              <li class="episode"><span>Episode IV</span><a href="slides/FPT_4_2025.pdf">PDF</a></li>
+            </ul>
+          </article>
+
+          <article class="topic">
+            <p class="tag">Topic archive</p>
+            <h3>Advanced Data Structures</h3>
+            <ul class="episodes">
+              <li class="episode"><span>Episode I</span><a href="slides/ADS_1_2024.pdf">PDF</a></li>
+              <li class="episode"><span>Episode II</span><span class="multi"><a
+                    href="slides/ADS_2a_2024.pdf">LCA/RMQ</a><a
+                    href="slides/ADS_2b_2024.pdf">LA</a></span></li>
+              <li class="episode"><span>Episode III</span><a href="slides/ADS_3_2024.pdf">PDF</a></li>
+              <li class="episode"><span>Episode IV</span><a href="slides/ADS_4_2024.pdf">PDF</a></li>
+            </ul>
+          </article>
+
+          <article class="topic">
+            <p class="tag">Topic archive</p>
+            <h3>Algorithms for Big Data</h3>
+            <ul class="episodes">
+              <li class="episode"><span>Episode I</span><a href="slides/Algs4BD_1.pdf">PDF</a></li>
+              <li class="episode"><span>Episode II</span><a href="slides/Algs4BD_2.pdf">PDF</a></li>
+              <li class="episode"><span>Episode III</span><a href="slides/Algs4BD_3.pdf">PDF</a></li>
+              <li class="episode"><span>Episode IV</span><a href="slides/Algs4BD_4.pdf">PDF</a></li>
+            </ul>
+          </article>
+
+          <article class="topic">
+            <p class="tag">Topic archive</p>
+            <h3>Beyond Worst-Case Analysis</h3>
+            <ul class="episodes">
+              <li class="episode"><span>Episode I</span><a href="slides/BWA_1_2025.pdf">PDF</a></li>
+              <li class="episode"><span>Episode II</span><a href="slides/BWA_2_2025.pdf">PDF</a></li>
+              <li class="episode"><span>Episode III</span><a href="slides/BWA_3_2025.pdf">PDF</a></li>
+              <li class="episode"><span>Episode IV</span><a href="slides/BWA_4_2025.pdf">PDF</a></li>
+            </ul>
+          </article>
+        </div>
+
+      </div>
+    </section>
+  </main>
+  <footer class="footer wrap">
+    <p>Advanced Topics on Algorithms</p><a href="#top">Torna all’inizio ↑</a>
+  </footer>
+</body>
+
+</html>
